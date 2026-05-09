@@ -1,0 +1,139 @@
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 50px;
+  background: white;
+  color: #1f2937;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+ 
+}
+
+.logo {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 35px;
+  font-weight: bold;
+  color: #3b2f80;
+}
+
+.nav-links {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-decoration: none;
+  color: #374151;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+/* Normal links */
+.nav-links a {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-decoration: none;
+  color: #374151;
+  font-size: 20px;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #ff7a2f;
+}
+
+.btn-nav {
+  padding: 10px 18px;
+  background-color: #ff7a2f;
+  color: white !important;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.btn-nav:hover {
+  background-color: #e66a20;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+   gap: 25px;
+}
+.nav-links a,
+.nav-item {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.nav-item {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-decoration: none;
+  color: #374151;
+  
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+ padding-left: 30px;
+ padding-top: 2px;
+}
+/* Dropdown container */
+.dropdown {
+  display: flex;
+  align-items: center; 
+  position: relative;
+  cursor: pointer;
+
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: #374151;
+}
+/* Dropdown menu */
+.dropdown-menu {
+  
+  position: absolute;
+  top: 35px;
+  left: 0;
+  width: 220px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  display: none;
+  z-index: 100;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 12px 18px;
+  text-decoration: none;
+  color: #1f2937;
+  font-size: 15px;
+}
+
+
+/*.nav-item:hover {
+  background-color: #e66a20;
+}*/
+
+.dropdown-menu span:hover {
+  background-color: #e66a20;
+}
+
+.nav-links a:hover,
+.dropdown:hover .nav-item {
+  color: #ff7a2f;
+}

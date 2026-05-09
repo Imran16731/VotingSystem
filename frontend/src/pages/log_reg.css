@@ -1,0 +1,147 @@
+.auth-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*background: linear-gradient(135deg, #5a4fcf, #6d5dfc);*/
+  background-color: white;
+  font-family: Arial, sans-serif;
+}
+
+.auth-box {
+  display: flex;
+  width: 800px;
+  height: 550px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fffffe;
+  outline-style: solid;
+  outline-color: #524a96;
+  outline-width: 1px;
+}
+
+.auth-left {
+  flex: 1;
+  background: linear-gradient(135deg, #3b2f80, #5a4fcf);;
+  color: #EAEFEF;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.auth-left h2 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.auth-left p {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+ 
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.small-text {
+  margin-top: 20px;
+}
+
+.outline-btn {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 15px;
+  padding: 10px 20px;
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.auth-right {
+  padding-left: 60px;
+  flex: 1;
+  padding-top: 30px;
+  padding-bottom: 40px;
+  padding-right: 40px;;
+}
+
+.auth-right h3 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+.auth-right label {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 15px;
+  
+ 
+}
+
+.auth-right input {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 12px;
+  width: 80%;
+  padding: 12px;
+  margin: 8px 0 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.forgot {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 12px;
+  color: #6d5dfc;
+  cursor: pointer;
+}
+
+.login-btn {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 15px;
+  width: 80%;
+  padding: 12px;
+  background: linear-gradient(135deg, #3b2f80, #5a4fcf);;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+  .auth-box {
+    flex-direction: column;
+    height: auto;
+    width: 90%;
+  }
+
+  .auth-left {
+    display: none; 
+  }
+}
