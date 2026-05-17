@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VotingSystem.Models
 {
-    [Table("Users")] // matches table name
+    [Table("Users")]
     public class User
     {
         [Column("Id")]
-        public int UserId { get; set; }  // C# friendly name
+        public int UserId { get; set; }
 
         [Column("Name")]
-        public string Username { get; set; } // maps to SQL column "Name"
+        public string Username { get; set; }
 
         [Column("Email")]
         public string Email { get; set; }
@@ -19,9 +19,9 @@ namespace VotingSystem.Models
         public string Password { get; set; }
 
         [Column("Role")]
-        public string Role { get; set; }
+        public string Role { get; set; } = "User";
 
         [Column("CreatedAt")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }
