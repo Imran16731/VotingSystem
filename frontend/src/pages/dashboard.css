@@ -1,124 +1,128 @@
-
-.dashboard {
-  padding: 20px 40px;
-  background: #f9fafb;
+.dashboard-page {
+  display: flex;
   min-height: 100vh;
-}
-
-.dashboard-header h2 {
-   font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  font-style: normal;
-  font-size: 30px;
-  margin-bottom: 5px;
-}
-
-.dashboard-header p {
   font-family: "Poppins", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 20px;
-  color: #6b7280;
-  margin-bottom: 20px;
+  background: #f5f7fb;
 }
 
-/* Action bar */
-.dashboard-actions {
-  
+/* SIDEBAR */
+.sidebar {
+  width: 250px;
+  background: #1f2a56;
+  color: white;
+  padding: 40px 20px;
+}
+
+.sidebar h2 {
+  margin-bottom: 40px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sidebar li:hover {
+  color: #ff7a2f;
+}
+
+/* CONTENT */
+.dashboard-content {
+  flex: 1;
+  padding: 40px;
+}
+
+.dashboard-content h1 {
+  margin-bottom: 30px;
+  color: #1f2a56;
+}
+
+/* STATS */
+.stats-container {
   display: flex;
-  gap: 10px;
-  align-items: center;
+  gap: 25px;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
-.dashboard-actions input,
-.dashboard-actions select {
-   font-family: "Poppins", sans-serif;
-  font-weight: 300;
-  font-style: normal;
-  font-size: 15px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-.search-btn {
-  font-family: "Poppins", sans-serif;
-  font-weight: 350;
-  font-style: normal;
-  font-size: 15px;
-  background: #22c55e;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.primary-btn {
-   font-family: "Poppins", sans-serif;
-  font-weight: 350;
-  font-style: normal;
-  font-size: 15px;
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.secondary-btn {
-   font-family: "Poppins", sans-serif;
-  font-weight: 350;
-  font-style: normal;
-  font-size: 15x;
+.stat-card {
   background: white;
-  border: 1px solid #ccc;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
+  padding: 25px;
+  border-radius: 18px;
+  width: 220px;
+
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
 }
 
-.right-actions {
-  margin-left: auto;
+.stat-card h3 {
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+.stat-card p {
+  font-size: 30px;
+  font-weight: bold;
+  color: #5a4fcf;
+}
+
+/* ELECTION CARD */
+.election-card {
+  background: white;
+  padding: 35px;
+  border-radius: 20px;
+
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.election-card h2 {
+  margin-bottom: 25px;
+  color: #1f2a56;
+}
+
+.election-card p {
+  margin-bottom: 15px;
+}
+
+/* BUTTONS */
+.dashboard-buttons {
   display: flex;
-  gap: 10px;
+  gap: 20px;
+  margin-top: 30px;
+  flex-wrap: wrap;
 }
 
-.table-container {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th {
-  font-family: "Poppins", sans-serif;
-  font-weight: 420;
-  font-style: normal;
-  font-size: 17px;
-  text-align: left;
-  padding: 12px;
-  border-bottom: 1px solid #eee;
-}
-
-td {
-  padding: 12px;
-  border-bottom: 1px solid #f1f1f1;
-}
-
-td button {
-  padding: 6px 12px;
-  border: none;
-  background: #6d5dfc;
+.dashboard-buttons button {
+  background: #ff7a2f;
   color: white;
-  border-radius: 6px;
+
+  border: none;
+  padding: 14px 22px;
+
+  border-radius: 10px;
+
   cursor: pointer;
+  font-weight: 600;
+}
+
+.dashboard-buttons button:hover {
+  background: #e66a20;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+
+  .dashboard-page {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
 }

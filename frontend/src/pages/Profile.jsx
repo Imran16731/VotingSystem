@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import "./Profile.css";
 
 const Profile = () => {
 
@@ -43,20 +44,56 @@ const Profile = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Profile Page</h2>
+    <div className="profile-page">
 
-      {loading && <p>Loading...</p>}
+      <div className="profile-container">
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+        <div className="profile-header">
+          <div className="profile-avatar">
+            {user?.username?.charAt(0).toUpperCase()}
+          </div>
 
-      {user && (
-        <div>
-          <p>Name: {user.username}</p>
-          <p>Email: {user.email}</p>
-          <p>Role: {user.role}</p>
+          <div>
+            <h1>My Profile</h1>
+            <p>Manage your CloudVote account information</p>
+          </div>
         </div>
-      )}
+
+        {loading && (
+          <div className="status-card">
+            <p>Loading profile...</p>
+          </div>
+        )}
+
+        {error && (
+          <div className="status-card error-card">
+            <p>{error}</p>
+          </div>
+        )}
+
+        {user && (
+          <div className="profile-card">
+
+            <div className="info-box">
+              <span className="label">Username</span>
+              <p>{user.username}</p>
+            </div>
+
+            <div className="info-box">
+              <span className="label">Email</span>
+              <p>{user.email}</p>
+            </div>
+
+            <div className="info-box">
+              <span className="label">Role</span>
+              <p className="role-badge">{user.role}</p>
+            </div>
+
+          </div>
+        )}
+
+      </div>
+
     </div>
   );
 };

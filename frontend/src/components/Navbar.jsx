@@ -14,10 +14,9 @@ const Navbar = () => {
 
         <div className="dropdown-menu">
   <Link to="/managed">Managed Elections</Link>
-  <Link to="/dashboard">Online Voting</Link>
-  <Link to="/telephone">Telephone Voting</Link>
-  <Link to="/paper">Paper Ballot</Link>
-  <Link to="/nominations">Nominations</Link>
+  <Link to="/voting">Online Voting</Link>
+  
+  
 </div>
         </div>
 
