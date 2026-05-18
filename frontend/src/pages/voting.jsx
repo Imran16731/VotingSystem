@@ -1,109 +1,73 @@
-﻿import "./voting.css";
-import { useNavigate } from "react-router-dom";
+﻿import React from "react";
+import "./voting.css";
 
-const OnlineVoting = () => {
-
-  const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Later you can save form data here
-
-    navigate("/dashboard");
-  };
-
+export default function ElectionSetupPage() {
   return (
-    <div className="online-page">
-      <div className="online-container">
+    <div className="page-wrapper">
+      <div className="container">
+        <div className="header">
+          <h1>Online Election Setup</h1>
+          <p>Create and manage secure elections for your organization.</p>
+        </div>
 
-        <h1>Welcome to the Election Manager</h1>
+        <form className="form">
 
-        <p className="intro-text">
-          Create and manage secure online elections for your organization.
-        </p>
+          {/* Election Info */}
+          <section className="card">
+            <h2>Election Information</h2>
 
-        {/* STEP 1 */}
-        <div className="form-card">
-
-          <h2>Step 1. Your Organization</h2>
-
-          <form className="organization-form">
-
-            <div className="form-group">
-              <label>Organization</label>
-              <input
-                type="text"
-                placeholder="Organization Name"
-              />
+            <div className="grid">
+              <input type="text" placeholder="Election Title" />
+              <input type="text" placeholder="Organization Name" />
             </div>
+            <div className="grid2">
+            <textarea placeholder="Description"></textarea></div>
+          </section>
 
-            <div className="form-group">
-              <label>Country</label>
+          {/* Location */}
+          <section className="card">
+            <h2>Location Information</h2>
 
+            <div className="grid-3">
               <select>
                 <option>Bangladesh</option>
                 <option>India</option>
                 <option>USA</option>
               </select>
+
+              <input type="text" placeholder="City" />
+              <input type="text" placeholder="Address" />
             </div>
+          </section>
 
-            <div className="form-group">
-              <label>Address</label>
-              <input type="text" />
+          {/* Schedule */}
+          <section className="card">
+            <h2>Voting Schedule</h2>
+
+            <div className="grid">
+              <input type="datetime-local" />
+              <input type="datetime-local" />
             </div>
+          </section>
 
-            <div className="form-group">
-              <label>City</label>
-              <input type="text" />
+          {/* Security */}
+          <section className="card">
+            <h2>Security Settings</h2>
+
+            <div className="checkbox-grid">
+              <label><input type="checkbox" /> Anonymous Voting</label>
+              <label><input type="checkbox" /> Require Login</label>
+              <label><input type="checkbox" /> Email Verification</label>
+              <label><input type="checkbox" /> One Vote Per User</label>
             </div>
+          </section>
 
-          </form>
+          <button className="btn" type="submit">
+            Create Election
+          </button>
 
-        </div>
-
-        <br />
-        <br />
-
-        {/* STEP 2 */}
-        <div className="form-card">
-
-          <h2>Step 2. Your Account</h2>
-
-          <form
-            className="organization-form"
-            onSubmit={handleSubmit}
-          >
-
-            <div className="form-group">
-              <label>Email</label>
-              <input type="text" />
-            </div>
-
-            <div className="form-group">
-              <label>Username</label>
-              <input type="text" />
-            </div>
-
-            <div className="form-group">
-              <label>Password</label>
-              <input type="password" />
-            </div>
-
-            <button
-              type="submit"
-              className="submit-btn"
-            >
-              Continue
-            </button>
-
-          </form>
-
-        </div>
-
+        </form>
       </div>
     </div>
   );
-};
-
-export default OnlineVoting;
+}
