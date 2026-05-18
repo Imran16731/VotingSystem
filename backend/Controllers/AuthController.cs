@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using VotingSystem.Data;
 using VotingSystem.DTOs;
 using VotingSystem.Models;
@@ -15,9 +16,7 @@ namespace VotingSystem.Controllers
         private readonly VotingDbContext _context;
         private readonly JwtService _jwtService;
 
-        public AuthController(
-            VotingDbContext context,
-            JwtService jwtService)
+        public AuthController(VotingDbContext context, JwtService jwtService)
         {
             _context = context;
             _jwtService = jwtService;
@@ -30,17 +29,13 @@ namespace VotingSystem.Controllers
         public async Task<IActionResult> Register(RegisterDto dto)
         {
             if (dto.Password != dto.ConfirmPassword)
-            {
                 return BadRequest(new { message = "Passwords do not match" });
-            }
 
             var existingUser = await _context.Users
                 .FirstOrDefaultAsync(u => u.Email == dto.Email);
 
             if (existingUser != null)
-            {
                 return BadRequest(new { message = "Email already exists" });
-            }
 
             var user = new User
             {
@@ -58,7 +53,7 @@ namespace VotingSystem.Controllers
         }
 
         // =====================
-        // LOGIN (JWT)
+        // LOGIN
         // =====================
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
@@ -69,16 +64,14 @@ namespace VotingSystem.Controllers
                     u.Password == dto.Password);
 
             if (user == null)
-            {
                 return BadRequest(new { message = "Invalid email or password" });
-            }
 
             var token = _jwtService.GenerateToken(user);
 
             return Ok(new
             {
                 message = "Login successful",
-                token = token,
+                token,
                 userId = user.UserId,
                 username = user.Username,
                 email = user.Email,
@@ -87,27 +80,22 @@ namespace VotingSystem.Controllers
         }
 
         // =====================
-        // 🔐 PROTECTED PROFILE API (NEW)
+        // PROFILE (FIXED JWT)
         // =====================
         [Authorize]
         [HttpGet("profile")]
         public async Task<IActionResult> GetProfile()
         {
-            // Get user email/claims from JWT (simple version)
-            var email = User?.Identity?.Name;
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
 
             if (email == null)
-            {
-                return Unauthorized(new { message = "Invalid token" });
-            }
+                return Unauthorized(new { message = "Invalid token (email missing)" });
 
             var user = await _context.Users
                 .FirstOrDefaultAsync(u => u.Email == email);
 
             if (user == null)
-            {
                 return NotFound(new { message = "User not found" });
-            }
 
             return Ok(new
             {
