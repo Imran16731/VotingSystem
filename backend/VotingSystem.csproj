@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+
     <!-- JWT Authentication -->
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
 
@@ -22,6 +23,7 @@
 
     <!-- JWT Token Library -->
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.0" />
+
   </ItemGroup>
 
 </Project>
