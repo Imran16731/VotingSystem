@@ -1,5 +1,8 @@
+
+
 # Build stage
-FROM --platform=linux/amd64 node:20 AS build
+FROM node:20 AS build
+
 WORKDIR /app
 
 COPY package*.json ./
@@ -9,8 +12,10 @@ COPY . .
 RUN npm run build
 
 # Production stage
-FROM --platform=linux/amd64 nginx:stable
+FROM nginx:latest
+
 COPY --from=build /app/dist /usr/share/nginx/html
 
 EXPOSE 80
+
 CMD ["nginx", "-g", "daemon off;"]
