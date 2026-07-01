@@ -1,0 +1,33 @@
+name : CI Pipeline
+on:
+  push:
+    branches:
+      -jarifa2
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+    -uses: actions/checkout@v4
+    -uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    -run: |
+      cd frontend
+      npm install
+      npm run build
+  
+    build-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.300
+
+      - run: |
+          cd backend
+          dotnet restore
+          dotnet build
