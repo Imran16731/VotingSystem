@@ -46,21 +46,21 @@ jobs:
       - name: Build Backend Docker Image
         run:  docker build -t cloudvote-backend ./backend
 
-    test-compose:
-      runs-on: ubuntu-latest
+  test-compose:
+    runs-on: ubuntu-latest
 
-      needs:
-        - build-docker
+    needs:
+      - build-docker
 
-      steps:
-        - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-        - name: Start Docker Compose
-          run: docker compose up -d --build
+      - name: Start Docker Compose
+        run: docker compose up -d --build
 
-        - name: Show Running Containers
-          run: docker ps
+      - name: Show Running Containers
+        run: docker ps
 
-        - name: Stop Containers
-          if: always()
-          run: docker compose down
+      - name: Stop Containers
+        if: always()
+        run: docker compose down
