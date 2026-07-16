@@ -93,20 +93,45 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
+      #- name: Build Frontend Image
+       # run: |
+       #   docker build -t ${{ secrets.DOCKER_USERNAME }}/cloudvote-frontend ./frontend
+      
+
+      #- name: Push Frontend Image
+        #run: |
+          #docker push ${{ secrets.DOCKER_USERNAME }}/cloudvote-frontend
+
+      #- name: Build Backend Image
+       # run: |
+       #   docker build -t ${{ secrets.DOCKER_USERNAME }}/cloudvote-backend ./backend
+
+      #- name: Push Backend Image
+        #run: |
+          #docker push ${{ secrets.DOCKER_USERNAME }}/cloudvote-backend
+
       - name: Build Frontend Image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/cloudvote-frontend ./frontend
+          docker build \
+            -t ${{ secrets.DOCKER_USERNAME }}/cloudvote-frontend: \
+            -t ${{ secrets.DOCKER_USERNAME }}/cloudvote-frontend:${{ env.IMAGE_TAG }} \
+            ./frontend
 
-      - name: Push Frontend Image
+      - name: Push Frontend Images
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/cloudvote-frontend
+          docker push ${{ secrets.DOCKER_USERNAME }}/cloudvote-frontend:
+          docker push ${{ secrets.DOCKER_USERNAME }}/cloudvote-frontend:${{ env.IMAGE_TAG }}
 
       - name: Build Backend Image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/cloudvote-backend ./backend
+          docker build \
+            -t ${{ secrets.DOCKER_USERNAME }}/cloudvote-backend: \
+            -t ${{ secrets.DOCKER_USERNAME }}/cloudvote-backend:${{ env.IMAGE_TAG }} \
+            ./backend
 
-      - name: Push Backend Image
+      - name: Push Backend Images
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/cloudvote-backend
+          docker push ${{ secrets.DOCKER_USERNAME }}/cloudvote-backend:
+          docker push ${{ secrets.DOCKER_USERNAME }}/cloudvote-backend:${{ env.IMAGE_TAG }}
 
-      
+            
