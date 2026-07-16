@@ -90,4 +90,20 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-    
+      - name: Build Frontend Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/cloudvote-frontend ./frontend
+
+      - name: Push Frontend Image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/cloudvote-frontend
+
+      - name: Build Backend Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/cloudvote-backend ./backend
+
+      - name: Push Backend Image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/cloudvote-backend
+
+      
