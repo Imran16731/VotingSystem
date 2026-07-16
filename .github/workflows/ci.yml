@@ -34,7 +34,7 @@ jobs:
 
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 10.0.x
+          dotnet-version: '10.0.x'
           
 
       - run: |
@@ -74,3 +74,20 @@ jobs:
       - name: Stop Containers
         if: always()
         run: docker compose down
+
+  docker-publish:
+    runs-on: ubuntu-latest
+    needs:
+      - build-docker
+      - test-compose
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+    
