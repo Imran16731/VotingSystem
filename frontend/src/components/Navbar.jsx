@@ -1,28 +1,54 @@
 import { Link } from "react-router-dom";
-import "./Navbar.css";
 
 const Navbar = () => {
+
   return (
     <nav className="navbar">
-      <h2 className="logo">CloudVote</h2>
 
-      <div className="nav-links">
-        <Link to="/">Home</Link>
-
-        <div className="dropdown">
-         <span className="nav-item">Services ▾</span>
-
-        <div className="dropdown-menu">
-  <Link to="/managed">Managed Elections</Link>
-  <Link to="/voting">Online Voting</Link>
-  
-  
-</div>
-        </div>
-
-        <Link to="/login">Login</Link>
-        <Link to="/register" className="btn-nav">Get Started</Link>
+      <div className="navbar-logo">
+        <Link to="/">
+          CloudVote
+        </Link>
       </div>
+
+
+      <div className="navbar-links">
+
+        <Link to="/">
+          Home
+        </Link>
+
+        <Link to="/events">
+          Voting Events
+        </Link>
+
+        <Link to="/dashboard">
+          Dashboard
+        </Link>
+
+        <Link to="/voting">
+          Vote
+        </Link>
+
+        <Link to="/profile">
+          Profile
+        </Link>
+
+      </div>
+
+
+      <div className="navbar-auth">
+
+        <Link to="/login">
+          Login
+        </Link>
+
+        <Link to="/register">
+          Register
+        </Link>
+
+      </div>
+
     </nav>
   );
 };

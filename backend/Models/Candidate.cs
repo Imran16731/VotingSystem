@@ -6,12 +6,18 @@ namespace VotingSystem.Models
     public class Candidate
     {
         [Column("Id")]
-        public int CandidateId { get; set; } // C# friendly name
+        public int CandidateId { get; set; }
 
-        [Column("Name")]
-        public string Name { get; set; }
+        [Column("UserId")]
+        public int UserId { get; set; }
 
         [Column("EventId")]
-        public int EventId { get; set; } // foreign key
+        public int EventId { get; set; }
+
+        [Column("Information")]
+        public string Information { get; set; } = string.Empty;
+
+        [Column("Manifesto")]
+        public string Manifesto { get; set; } = string.Empty;
     }
 }

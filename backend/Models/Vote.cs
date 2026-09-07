@@ -7,7 +7,7 @@ namespace VotingSystem.Models
     public class Vote
     {
         [Column("Id")]
-        public int VoteId { get; set; } // C# friendly name
+        public int VoteId { get; set; }
 
         [Column("UserId")]
         public int UserId { get; set; }

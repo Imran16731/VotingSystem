@@ -8,10 +8,10 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Controllers only (API project)
+// Controllers
 builder.Services.AddControllers();
 
-// DB Context
+// Database
 builder.Services.AddDbContext<VotingDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
@@ -21,7 +21,7 @@ builder.Services.AddDbContext<VotingDbContext>(options =>
 // JWT Service
 builder.Services.AddScoped<JwtService>();
 
-// CORS for React
+// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReact",
@@ -34,7 +34,9 @@ builder.Services.AddCors(options =>
 });
 
 // JWT Authentication
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(
+    JwtBearerDefaults.AuthenticationScheme
+)
 .AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
@@ -49,7 +51,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(
-                builder.Configuration["Jwt:Key"]
+                builder.Configuration["Jwt:Key"]!
             )
         )
     };
@@ -57,7 +59,35 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
-//app.UseHttpsRedirection();
+// =========================================================
+// APPLY DATABASE MIGRATIONS
+// =========================================================
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider
+        .GetRequiredService<VotingDbContext>();
+
+    try
+    {
+        Console.WriteLine("Checking database migrations...");
+
+        db.Database.Migrate();
+
+        Console.WriteLine("Database migrations completed.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("DATABASE MIGRATION ERROR:");
+        Console.WriteLine(ex.ToString());
+
+        throw;
+    }
+}
+
+// HTTP pipeline
+
+// app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
@@ -66,6 +96,7 @@ app.UseRouting();
 app.UseCors("AllowReact");
 
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();

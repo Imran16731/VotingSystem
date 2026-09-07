@@ -16,26 +16,40 @@ namespace VotingSystem.Controllers
         private readonly VotingDbContext _context;
         private readonly JwtService _jwtService;
 
-        public AuthController(VotingDbContext context, JwtService jwtService)
+        public AuthController(
+            VotingDbContext context,
+            JwtService jwtService)
         {
             _context = context;
             _jwtService = jwtService;
         }
 
-        // =====================
+
+        // =========================================================
         // REGISTER
-        // =====================
+        // =========================================================
+
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
             if (dto.Password != dto.ConfirmPassword)
-                return BadRequest(new { message = "Passwords do not match" });
+            {
+                return BadRequest(new
+                {
+                    message = "Passwords do not match"
+                });
+            }
 
             var existingUser = await _context.Users
                 .FirstOrDefaultAsync(u => u.Email == dto.Email);
 
             if (existingUser != null)
-                return BadRequest(new { message = "Email already exists" });
+            {
+                return BadRequest(new
+                {
+                    message = "Email already exists"
+                });
+            }
 
             var user = new User
             {
@@ -47,14 +61,21 @@ namespace VotingSystem.Controllers
             };
 
             await _context.Users.AddAsync(user);
+
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Registration successful" });
+            return Ok(new
+            {
+                message = "Registration successful",
+                userId = user.UserId
+            });
         }
 
-        // =====================
+
+        // =========================================================
         // LOGIN
-        // =====================
+        // =========================================================
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {
@@ -64,7 +85,12 @@ namespace VotingSystem.Controllers
                     u.Password == dto.Password);
 
             if (user == null)
-                return BadRequest(new { message = "Invalid email or password" });
+            {
+                return BadRequest(new
+                {
+                    message = "Invalid email or password"
+                });
+            }
 
             var token = _jwtService.GenerateToken(user);
 
@@ -79,9 +105,11 @@ namespace VotingSystem.Controllers
             });
         }
 
-        // =====================
-        // PROFILE (FIXED JWT)
-        // =====================
+
+        // =========================================================
+        // PROFILE
+        // =========================================================
+
         [Authorize]
         [HttpGet("profile")]
         public async Task<IActionResult> GetProfile()
@@ -89,13 +117,23 @@ namespace VotingSystem.Controllers
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
 
             if (email == null)
-                return Unauthorized(new { message = "Invalid token (email missing)" });
+            {
+                return Unauthorized(new
+                {
+                    message = "Invalid token."
+                });
+            }
 
             var user = await _context.Users
                 .FirstOrDefaultAsync(u => u.Email == email);
 
             if (user == null)
-                return NotFound(new { message = "User not found" });
+            {
+                return NotFound(new
+                {
+                    message = "User not found."
+                });
+            }
 
             return Ok(new
             {

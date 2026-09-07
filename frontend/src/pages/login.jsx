@@ -1,61 +1,84 @@
 import "./log_reg.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 
 const Login = () => {
 
   const navigate = useNavigate();
 
-  // form state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // login handler
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    setError("");
+    setLoading(true);
+
     try {
-      const response = await axios.post(
-        "http://localhost:5273/api/auth/login",
-        {
-          email,
-          password
-        }
-      );
 
-      // success message from backend
-      alert(response.data.message);
+      const data = await api.login({
+        email,
+        password
+      });
 
-      // =========================
-      // JWT TOKEN SAVE (IMPORTANT)
-      // =========================
+      // Save JWT token
       localStorage.setItem(
         "token",
-        response.data.token
+        data.token
       );
 
-      // optional user info (for UI only)
+      // Save user information
+      localStorage.setItem(
+        "userId",
+        data.userId
+      );
+
       localStorage.setItem(
         "username",
-        response.data.username
+        data.username
+      );
+
+      localStorage.setItem(
+        "email",
+        data.email
       );
 
       localStorage.setItem(
         "role",
-        response.data.role
+        data.role
       );
 
-      // redirect to home
+      alert(data.message || "Login successful");
+
       navigate("/");
 
     } catch (error) {
 
+      console.error("Login error:", error);
+
       if (error.response) {
-        alert(error.response.data.message);
+
+        setError(
+          error.response.data?.message ||
+          "Invalid email or password."
+        );
+
       } else {
-        alert("Server not responding");
+
+        setError(
+          "Unable to connect to the server."
+        );
+
       }
+
+    } finally {
+
+      setLoading(false);
 
     }
   };
@@ -66,6 +89,7 @@ const Login = () => {
       <div className="auth-box">
 
         {/* LEFT SIDE */}
+
         <div className="auth-left">
 
           <h2>Hey There!</h2>
@@ -87,39 +111,66 @@ const Login = () => {
 
         </div>
 
+
         {/* RIGHT SIDE */}
+
         <div className="auth-right">
 
           <h3>SIGN IN</h3>
 
+          {error && (
+            <div className="login-error">
+              {error}
+            </div>
+          )}
+
           <form onSubmit={handleLogin}>
 
             <label>Email</label>
+
             <input
               type="email"
               placeholder="Enter your email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) =>
+                setEmail(e.target.value)
+              }
               required
             />
 
+
             <label>Password</label>
+
             <input
               type="password"
               placeholder="Enter password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
               required
             />
 
+
             <div className="options">
+
               <span className="forgot">
                 Forgot Password?
               </span>
+
             </div>
 
-            <button className="login-btn" type="submit">
-              Sign In
+
+            <button
+              className="login-btn"
+              type="submit"
+              disabled={loading}
+            >
+
+              {loading
+                ? "Signing In..."
+                : "Sign In"}
+
             </button>
 
           </form>
